@@ -6,7 +6,7 @@ import argparse
 import matplotlib.pyplot as plt
 import xarray as xr
 from sklearn.model_selection import train_test_split
-from models import model_factory, inception
+from models import model_factory
 from utils import normalize_to_range, train_test_split_preserve_distr
 from random import choice, sample, randint
 import cv2
