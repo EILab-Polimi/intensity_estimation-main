@@ -6,7 +6,7 @@ import argparse
 import matplotlib.pyplot as plt
 import xarray as xr
 from sklearn.model_selection import train_test_split
-from models import model_factory
+from models import model_factory, inception
 from utils import normalize_to_range, train_test_split_preserve_distr
 from random import choice, sample, randint
 import cv2
@@ -29,7 +29,7 @@ initializer = tf.keras.initializers.GlorotUniform(seed=args.fold)
 orig_input_shape=(128, 128, 1)
 target_input_shape=(96, 96, 1)
 
-model_name = f'DELETE_THIS{args.model_name}.{args.epochs}'
+model_name = f'{args.model_name}.{args.epochs}'
 
 """
 Augmentation functions
@@ -207,7 +207,7 @@ history = model.fit(data_generator(ids=ids_train_split),
                     callbacks=callbacks,
                     validation_data=data_generator(ids_valid_split),
                     validation_steps=int(np.ceil(len(ids_valid_split) / args.batch_size)),
-                    verbose=1)
+                    verbose=2)
 
 best_score = min(history.history['val_root_mean_squared_error'])
 print(f'RMSE for {model_name}: {best_score}')
